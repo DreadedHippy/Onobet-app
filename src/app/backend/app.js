@@ -13,6 +13,13 @@ const { buildSchema } = require('graphql');
 const  { composeMongoose } = require('graphql-compose-mongoose');
 const { schemaComposer } = require('graphql-compose');
 
+const picsOptions = {
+  url: 'http://api.football-data.org/v2/teams/709',
+  dataType: 'json',
+  type: 'GET',
+  headers: { 'x-auth-token': '440244150fc84a82b3174d238d6d6659' }
+};
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -35,6 +42,4 @@ mongoose
 
 app.post('/users/signup', signup.signup);
 app.post('/users/login', login.login)
-
-
 module.exports = app
