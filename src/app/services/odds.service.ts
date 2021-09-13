@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Team } from '../interfaces/team.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class OddsService {
 
   api = 'https://api.football-data.org/v2/competitions/CL/matches?status=SCHEDULED';
   url = 'http://api.football-data.org/v2/teams/';
+  teamsUrl = 'http://api.football-data.org/v2/competitions/CL/teams';
   xAuthToken = '440244150fc84a82b3174d238d6d6659';
 
   options = {
@@ -34,13 +36,31 @@ export class OddsService {
     return this.http.get(url, this.options);
   }
 
+  getTeams() {
+    return this.http.get(this.teamsUrl, this.options);
+  };
+
+  pushTeams(teamData) {
+    const url = 'http://localhost:3000/team';
+    this.http.post<{team: Team[]}>(url , teamData)
+    .subscribe(response => {
+      console.log(response);
+    },
+    error => {
+      console.log(error);
+      return;
+    });
+  };
+
   //Get home team emblem
-  getHomeTeamPic(homeID) {
-    return this.http.get(environment.pics+homeID, this.picsOptions);
-  }
+  getHomeTeamPic(homeInfo) {
+    const url = 'http://localhost:3000/teamPic';
+    return this.http.post<{crest: string}>(url , homeInfo);
+  };
 
   //Get away team emblem
-  getAwayTeamPic( awayID) {
-    return this.http.get(environment.pics+awayID, this.picsOptions);
-  }
+  getAwayTeamPic(awayInfo) {
+    const url = 'http://localhost:3000/teamPic';
+    return this.http.post<{crest: string}>(url , awayInfo);
+  };
 }

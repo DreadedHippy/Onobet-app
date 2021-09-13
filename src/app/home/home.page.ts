@@ -6,6 +6,7 @@ import { OddsService } from '../services/odds.service';
 import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Team } from '../interfaces/team.model';
 
 
 @Component({
@@ -23,18 +24,13 @@ export class HomePage implements OnInit {
   user: boolean;
   client = this.validatorService.client;
   api = environment.api;
-  teampics = environment.pics;
   fetchedData: any;
-  fetchedPics: any;
   id: string;
-  homeTeamID: string;
-  awayTeamID: string;
-  team: any;
+  clubs: any;
   homeTeamInfo: any;
   awayTeamInfo: any;
   homeImages = [];
   awayImages = [];
-  date: string;
 
 
 
@@ -51,27 +47,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit() {
-    this.odds
-      .getData(this.api)// getting data
-      .subscribe(data => {
-        console.log(data);
-        this.fetchedData = data;
-        console.log(this.fetchedData.matches); //getting all matches for a specific league
-        this.id = this.fetchedData.matches.forEach(item => {
-          this.homeTeamID = item.homeTeam.id; this.awayTeamID = item.awayTeam.id;// getting ID of hometeam and away team
-          this.odds.getHomeTeamPic(this.homeTeamID).subscribe(dataHome => { //getting hometeam info
-            this.homeTeamInfo = dataHome;  // Assiging Hometeam info to variable
-            console.log(this.homeTeamInfo.crestUrl);
-            this.homeImages.push(this.homeTeamInfo.crestUrl);// Getting hometeam emblem and adding to array of all hometeam emblem
-          });
-          this.odds.getAwayTeamPic(this.awayTeamID).subscribe(dataAway => {
-            this.awayTeamInfo = dataAway; //Assigning awayTeam info to a variable
-            console.log(this.awayTeamInfo.crestUrl);
-            this.awayImages.push(this.awayTeamInfo.crestUrl); //Getting away team emblem and adding to array of all awayTeam emblem
-          });
-        });
-      }
-    );
+    this.teamEmblemRetreival();
   }
 
 
@@ -102,5 +78,55 @@ export class HomePage implements OnInit {
     } catch(err){
       console.log('Error', err);
     }
+  }
+
+  teamInfoCollection(){
+    this.odds.getTeams().subscribe(response => {
+      const infoUrl = 'http://localhost:3000/teams';
+      console.log(response);
+      this.clubs = response;
+      console.log('Teams: ', this.clubs.teams);
+      this.teamInfoPush();
+    });
+  }
+
+  teamInfoPush(){
+    this.clubs.teams.forEach(item => {
+      const data: Team = {
+        teamID: item.id,
+        teamCrest: item.crestUrl
+      };
+      this.odds.pushTeams(data);
+    });
+  }
+
+  teamEmblemRetreival(){
+    this.odds.getData(this.api)// getting data
+      .subscribe(data => {
+        console.log(data);
+        this.fetchedData = data;
+        console.log(this.fetchedData.matches); //getting all matches for a specific league
+        this.id = this.fetchedData.matches.forEach(item => {
+          const homePicInfo: Team = {
+          teamID: item.homeTeam.id, // getting ID of hometeam
+          teamCrest: ' '
+          };
+          const awayPicInfo: Team = {
+          teamID: item.awayTeam.id, // getting ID of awayteam
+          teamCrest: ' '
+          };
+          this.odds.getHomeTeamPic(homePicInfo).subscribe(dataHome => { //getting hometeam info
+            this.homeTeamInfo = dataHome;  // Assiging Hometeam info to variable
+            // console.log(this.homeTeamInfo.crest);
+            this.homeImages.push(this.homeTeamInfo.crest);// Getting hometeam emblem and adding to array of all hometeam emblem
+          });
+          this.odds.getAwayTeamPic(awayPicInfo).subscribe(dataAway => {
+            this.awayTeamInfo = dataAway; //Assigning awayTeam info to a variable
+            // console.log(this.awayTeamInfo.crest);
+            this.awayImages.push(this.awayTeamInfo.crest); //Getting away team emblem and adding to array of all awayTeam emblem
+          });
+        });
+      }
+    );
   }
 }
