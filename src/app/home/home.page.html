@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="end" *ngIf='!user'>
+    <!-- <ion-buttons slot="end">
       <ion-chip (click)="logout()" outline color="primary-alt">
         <ion-avatar>
           <img [src]="client.photoURL" width='25px' height="25px">
@@ -8,8 +8,8 @@
         <ion-label color="warning">{{client.displayName}}</ion-label>
         <ion-icon name="log-out-outline" color="danger"></ion-icon>
       </ion-chip>
-    </ion-buttons>
-    <ion-buttons slot="end" *ngIf='user'>
+    </ion-buttons> -->
+    <!-- <ion-buttons slot="end" *ngIf='!user'>
       <ion-button color='primary-alt' fill='solid' size='default' shape='round' class='buttonStyle' (click)="signup()">
         <img src="../../assets/icon/icons8-google.svg" width='25px' height="25px">
         SIGN UP
@@ -18,7 +18,7 @@
         <img src="../../assets/icon/icons8-google.svg" width='25px' height="25px">
         LOG IN
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -26,12 +26,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf='!user'>
+<ion-content>
   <ion-list>
     <ion-item *ngFor="let data of fetchedData?.matches; index as  i ">
       <span class="ion-text-left" slot="start" class="len">{{ i + 1 }}</span>
       <ion-avatar>
-        <img [src]="homeImages[i]" class="avatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="50" height="50">
+        <img [src]="homeImages[i]" class="avatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="120" height="120">
       </ion-avatar>
       <ion-label style="text-align: center;">
         <h3 style="color: rgb(196, 221, 128); font-size: x-large;">{{data.homeTeam.name}} vs. {{data.awayTeam.name}}</h3>
@@ -49,9 +49,9 @@
   </ion-list>
 </ion-content>
 
-<ion-content *ngIf='user'>
+<!-- <ion-content *ngIf='!user'>
   <ion-icon name="sad" class="loggedOut1" style="font-size: 100px;"></ion-icon>
   <p class="loggedOut2" style="padding-top: 0px;">Nothing to see here, please login or signup above</p>
-</ion-content>
+</ion-content> -->
 
 
