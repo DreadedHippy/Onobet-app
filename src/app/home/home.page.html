@@ -27,12 +27,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let data of fetchedData?.matches; index as  i ">
-      <span class="ion-text-left" slot="start" class="len">{{ i + 1 }}</span>
-      <ion-avatar>
-        <img [src]="homeImages[i]" class="avatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="120" height="120">
-      </ion-avatar>
+  <ion-list *ngFor="let data of fetchedData?.matches; index as  i ">
+    <ion-item class="matchList">
+    <!-- <span class="len">{{ i + 1 }}</span> -->
+      <ion-thumbnail>
+        <ion-img [src]="homeImages[i]" class="homeAvatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="80" height="80"></ion-img>
+      </ion-thumbnail>
       <ion-label style="text-align: center;">
         <h3 style="color: rgb(196, 221, 128); font-size: x-large;">{{data.homeTeam.name}} vs. {{data.awayTeam.name}}</h3>
         <p style="font-family: times new roman; font-size: large; color: white;">{{data.description}}</p>
@@ -42,9 +42,9 @@
           <b>PLACE BET</b>
         </ion-button>
       </ion-label>
-      <ion-avatar>
-        <img [src]="awayImages[i]" class="avatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="50" height="50">
-      </ion-avatar>
+      <ion-thumbnail>
+        <ion-img [src]="awayImages[i]" class="awayAvatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="80" height="80"></ion-img>
+      </ion-thumbnail>
     </ion-item>
   </ion-list>
 </ion-content>

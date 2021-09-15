@@ -57,6 +57,7 @@ app.post('/teamPic', (req, res, next) => {
         message: 'ID not recognized'
       });
     };
+    console.log('Image sent')
     res.status(200).json({
       Message: 'Team found',
       crest: team.teamCrest
@@ -81,7 +82,6 @@ app.post('/team', (req, res, next) => {
       result: result,
       id: team.teamID,
       crest: team.teamCrest
-
     });
   })
 
