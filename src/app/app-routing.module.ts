@@ -46,7 +46,11 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./authpages/login/login.module').then( m => m.LoginPageModule)
+  },  {
+    path: 'bet-submit',
+    loadChildren: () => import('./bet-submit/bet-submit.module').then( m => m.BetSubmitPageModule)
   }
+
 ];
 
 @NgModule({
