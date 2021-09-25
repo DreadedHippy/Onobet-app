@@ -9,29 +9,22 @@
 
 <ion-content>
   <ion-card class="card">
-    <ion-item>
-      <ion-tabs>
-        <ion-tab-bar slot="top">
-          <ion-tab-button tab="Stuff">
-            <ion-icon name="calendar"></ion-icon>
-            <ion-label>{{homeTeam}}</ion-label>
-            <ion-badge>6</ion-badge>
-          </ion-tab-button>
-
-          <ion-tab-button tab="Some other stuff">
-            <ion-icon name="person-circle"></ion-icon>
-            <ion-label>{{awayTeam}}</ion-label>
-          </ion-tab-button>
-        </ion-tab-bar>
-      </ion-tabs>
-    </ion-item>
-    <hr>
-    <ion-item style="text-align: center;" class="fields">
-      <ion-label>AMOUNT TO BET:</ion-label>
-      <ion-input type="number"></ion-input>
-    </ion-item>
-    <ion-item class="button">
-      <ion-button strong color="primary-alt">PLACE BET!</ion-button>
-    </ion-item>
+    <form #form="ngForm" (ngSubmit)="submit(form)">
+      <ion-item>
+        <ion-label position="floating" style="text-align: center;">Make A Choice</ion-label>
+        <ion-select ngModel name="team" #choiceInput='ngModel'>
+          <ion-select-option value="Home" color="primary-alt">{{homeTeam}}</ion-select-option>
+          <ion-select-option value="Away">{{awayTeam}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <hr>
+      <ion-item>
+        <ion-label position="floating">AMOUNT TO BET: </ion-label>
+        <ion-input ngModel name="amount" #amount='ngModel' type="number"></ion-input>
+      </ion-item>
+      <ion-item class="button">
+        <ion-button strong color="primary-alt" type="submit">PLACE BET!</ion-button>
+      </ion-item>
+    </form>
   </ion-card>
 </ion-content>

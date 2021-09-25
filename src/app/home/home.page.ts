@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Team } from '../interfaces/team.model';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class HomePage implements OnInit {
   awayTeamInfo: any;
   homeImages = [];
   awayImages = [];
+  formFill = 'formFill';
 
 
 
@@ -47,7 +49,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit() {
-    this.teamEmblemRetreival();
+    // this.teamEmblemRetreival();
   }
 
 
@@ -128,5 +130,26 @@ export class HomePage implements OnInit {
         });
       }
     );
+  }
+
+  submit(form: NgForm){
+    const data = {
+      choice: form.value.team,
+      amount: form.value.amount
+    };
+    console.log(data);
+    if (form.invalid){
+      console.log('Invalid input');
+    }
+  }
+
+  toggleForm(num){
+    console.log('formfill'+num);
+    console.log(this.formFill+num);
+    if (document.getElementById('formFill'+num).style.display === 'none'){
+      document.getElementById('formFill'+num).style.display = 'block';
+    } else {
+      document.getElementById('formFill'+num).style.display = 'none';
+    }
   }
 }

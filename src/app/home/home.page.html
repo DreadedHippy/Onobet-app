@@ -38,7 +38,7 @@
         <p style="font-family: times new roman; font-size: large; color: white;">{{data.description}}</p>
         <p>{{data.content}}</p>
         <h4> <em>{{data.stage}}</em> - <span class="minor">{{data.utcDate}}</span></h4>
-        <ion-button color="primary-alt" href="http://localhost:8100/bet-submit?id={{data.id}}">
+        <ion-button color='primary-alt'(click)='toggleForm([i])'>
           <b>PLACE BET</b>
         </ion-button>
       </ion-label>
@@ -46,6 +46,25 @@
         <ion-img [src]="awayImages[i]" class="awayAvatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="80" height="80"></ion-img>
       </ion-thumbnail>
     </ion-item>
+    <ion-card class="card" id={{formFill+[i]}} style="display: none">
+      <form #form="ngForm" (ngSubmit)="submit(form)">
+        <ion-item color=royal>
+          <ion-label position="floating" style="text-align: center;">Make A Choice</ion-label>
+          <ion-select ngModel name="team" #choiceInput='ngModel'>
+            <ion-select-option value="Home" color="primary-alt">{{data.homeTeam.name}}</ion-select-option>
+            <ion-select-option value="Away">{{data.awayTeam.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <hr>
+        <ion-item>
+          <ion-label position="floating">AMOUNT TO BET: </ion-label>
+          <ion-input ngModel name="amount" #amount='ngModel' type="number"></ion-input>
+        </ion-item>
+        <ion-item class="button">
+          <ion-button strong type="submit">BET!</ion-button>
+        </ion-item>
+      </form>
+    </ion-card>
   </ion-list>
 </ion-content>
 

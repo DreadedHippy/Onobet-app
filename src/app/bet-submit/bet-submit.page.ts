@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { OddsService } from '../services/odds.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -15,6 +16,11 @@ export class BetSubmitPage implements OnInit {
   fetchedData: any;
   homeTeam: string;
   awayTeam: string;
+
+  customActionSheetOptions: any = {
+    header: 'Colors',
+    subHeader: 'Select your favorite color'
+  };
 
   constructor(
     public navCtrl: NavController,
@@ -36,10 +42,21 @@ export class BetSubmitPage implements OnInit {
     this.odds.getData(this.matchURL).subscribe ( data => {
       console.log(data);
       this.fetchedData = data;
-      this.homeTeam = this.fetchedData.match.homeTeam.toString();
-      this.awayTeam = this.fetchedData.match.awayTeam.toString();
+      this.homeTeam = this.fetchedData.match.homeTeam.name;
+      this.awayTeam = this.fetchedData.match.awayTeam.name;
     });
-
   }
 
-}
+  submit(form: NgForm){
+    const data = {
+      choice: form.value.team,
+      amount: form.value.amount
+    };
+    console.log(data);
+    if (form.invalid){
+      console.log('Invalid input');
+    }
+  }
+};
+
+
