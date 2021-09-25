@@ -33,6 +33,8 @@ export class HomePage implements OnInit {
   homeImages = [];
   awayImages = [];
   formFill = 'formFill';
+  formButton = 'formButton';
+  betButtonColor = 'primary-alt';
 
 
 
@@ -49,7 +51,7 @@ export class HomePage implements OnInit {
 
 
   ngOnInit() {
-    // this.teamEmblemRetreival();
+    this.teamEmblemRetreival();
   }
 
 
@@ -84,7 +86,7 @@ export class HomePage implements OnInit {
 
   teamInfoCollection(){
     this.odds.getTeams().subscribe(response => {
-      const infoUrl = 'http://localhost:3000/teams';
+      const infoUrl = environment.baseUrl + '/teams';
       console.log(response);
       this.clubs = response;
       console.log('Teams: ', this.clubs.teams);
@@ -148,8 +150,10 @@ export class HomePage implements OnInit {
     console.log(this.formFill+num);
     if (document.getElementById('formFill'+num).style.display === 'none'){
       document.getElementById('formFill'+num).style.display = 'block';
+      document.getElementById('formButton'+num).innerHTML = 'CANCEL';
     } else {
       document.getElementById('formFill'+num).style.display = 'none';
+      document.getElementById('formButton'+num).innerHTML = 'PLACE BET';
     }
   }
 }

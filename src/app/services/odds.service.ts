@@ -41,7 +41,7 @@ export class OddsService {
   };
 
   pushTeams(teamData) {
-    const url = 'http://localhost:3000/team';
+    const url = environment.baseUrl + '/team';
     this.http.post<{team: Team[]}>(url , teamData)
     .subscribe(response => {
       console.log(response);
@@ -54,13 +54,13 @@ export class OddsService {
 
   //Get home team emblem
   getHomeTeamPic(homeInfo) {
-    const url = 'http://localhost:3000/teamPic';
+    const url = environment.baseUrl + '/teamPic';
     return this.http.post<{crest: string}>(url , homeInfo);
   };
 
   //Get away team emblem
   getAwayTeamPic(awayInfo) {
-    const url = 'http://localhost:3000/teamPic';
+    const url = environment.baseUrl + '/teamPic';
     return this.http.post<{crest: string}>(url , awayInfo);
   };
 }

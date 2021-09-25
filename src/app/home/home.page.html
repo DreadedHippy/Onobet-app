@@ -34,12 +34,12 @@
         <ion-img [src]="homeImages[i]" class="homeAvatar" onerror="this.onerror=null; this.src='http:/\/newsapi.org/images/n-logo-border.png'"  alt="" width="80" height="80"></ion-img>
       </ion-thumbnail>
       <ion-label style="text-align: center;">
-        <h3 style="color: rgb(196, 221, 128); font-size: x-large;">{{data.homeTeam.name}} vs. {{data.awayTeam.name}}</h3>
-        <p style="font-family: times new roman; font-size: large; color: white;">{{data.description}}</p>
+        <h3 style="color: rgb(189, 156, 243); font-size: x-large; font-family: 'Trebuchet MS', sans-serif;">{{data.homeTeam.name}} vs. {{data.awayTeam.name}}</h3>
+        <p style="font-family: Helvetica; font-size: large; color: white;">{{data.description}}</p>
         <p>{{data.content}}</p>
         <h4> <em>{{data.stage}}</em> - <span class="minor">{{data.utcDate}}</span></h4>
-        <ion-button color='primary-alt'(click)='toggleForm([i])'>
-          <b>PLACE BET</b>
+        <ion-button (click)='toggleForm([i])' strong color={{betButtonColor}} id={{formButton+[i]}}>
+          PLACE BET
         </ion-button>
       </ion-label>
       <ion-thumbnail>
@@ -48,7 +48,7 @@
     </ion-item>
     <ion-card class="card" id={{formFill+[i]}} style="display: none">
       <form #form="ngForm" (ngSubmit)="submit(form)">
-        <ion-item color=royal>
+        <ion-item color=success>
           <ion-label position="floating" style="text-align: center;">Make A Choice</ion-label>
           <ion-select ngModel name="team" #choiceInput='ngModel'>
             <ion-select-option value="Home" color="primary-alt">{{data.homeTeam.name}}</ion-select-option>
@@ -61,7 +61,7 @@
           <ion-input ngModel name="amount" #amount='ngModel' type="number"></ion-input>
         </ion-item>
         <ion-item class="button">
-          <ion-button strong type="submit">BET!</ion-button>
+          <ion-button strong type="submit" color="success" >BET!</ion-button>
         </ion-item>
       </form>
     </ion-card>
